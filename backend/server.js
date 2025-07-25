@@ -24,6 +24,11 @@ app.use("/api/admin", adminRoute);
 app.use("/api/doctor", doctorRoute);
 app.use("/api/appointment", appointmentRoute);
 
+app.get('/', (req, res) => {
+  res.send('✅ Backend is running!');
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server running on Port ${PORT}`);
 });
