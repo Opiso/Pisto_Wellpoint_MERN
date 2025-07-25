@@ -13,10 +13,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://pisto-wellpoint.vercel.app"],
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
+
 app.use(express.json());
 
 app.use("/api/user", userRoute);
@@ -27,6 +28,9 @@ app.use("/api/appointment", appointmentRoute);
 app.get('/', (req, res) => {
   res.send('✅ Backend is running!');
 });
+
+console.log(FRONTEND_URL);
+
 
 app.listen(PORT, () => {
   console.log(`Server running on Port ${PORT}`);
