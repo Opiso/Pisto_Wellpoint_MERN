@@ -29,8 +29,7 @@ app.get('/', (req, res) => {
   res.send('✅ Backend is running!');
 });
 
-console.log(FRONTEND_URL);
-
+console.log("Frontend URL:", process.env.FRONTEND_URL);
 
 app.listen(PORT, () => {
   console.log(`Server running on Port ${PORT}`);
