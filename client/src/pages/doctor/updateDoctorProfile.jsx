@@ -15,7 +15,7 @@ const UpdateDoctorProfile = () => {
     try {
       dispatch(showLoading());
       const res = await axios.get(
-        `http://localhost:5000/api/doctor/doctor-profile/${doctorId}`,
+        `http://localhost:5000/api/doctor/fetch-doctor-profile`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -89,13 +89,13 @@ const UpdateDoctorProfile = () => {
     const { fname, lname, email, ...rest } = formData;
 
     const updatedFormData = {
-      ...rest,
-      userId: { fname, lname, email },
+      ...formData,
     };
+
     try {
       dispatch(showLoading());
       const res = await axios.put(
-        `http://localhost:5000/api/doctor/update-doctor-profile/${doctorId}`,
+        `http://localhost:5000/api/doctor/edit-profile`,
         updatedFormData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

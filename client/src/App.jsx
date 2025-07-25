@@ -104,7 +104,7 @@ function App() {
           element={
             <ProtectedRoutes>
               <DoctorProfile />
-            </ProtectedRoutes>
+            </ProtectedRoutes> 
           }
         />
         <Route
@@ -124,7 +124,7 @@ function App() {
           }
         />
         <Route
-          path="/doctor/updateDoctorProfile/:doctorId"
+          path="/doctor/editProfile"
           element={
             <ProtectedRoutes>
               <UpdateDoctorProfile />

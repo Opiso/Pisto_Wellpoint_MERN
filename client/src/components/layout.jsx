@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   const { user } = useSelector((state) => state.user);
   const location = useLocation();
   const navigate = useNavigate();
-  const appName = "Pisto Wellpoint";
+  const appName = "Pisto WellPoint";
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef();
@@ -183,10 +183,10 @@ const Layout = ({ children }) => {
                 {isOpen && (
                   <div className="absolute right-0 z-10 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-md">
                     <Link
-                      className="anchor"
+                      className="anchof"
                       to={
                         user.isDoctor
-                          ? `/doctor/updateDoctorProfile`
+                          ? `/doctor/editProfile`
                           : "/user/editProfile"
                       }
                     >

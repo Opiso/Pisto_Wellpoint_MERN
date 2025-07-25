@@ -2,12 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const appName = "Pisto Wellpoint";
+  const appName = "Pisto WellPoint";
 
   return (
     <footer className="bg-green-900 text-white mt-12">
       <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8">
-        {/* Brand / About */}
         <div>
           <h2 className="text-xl font-bold mb-3">{appName}</h2>
           <p className="text-sm">
@@ -16,39 +15,27 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Quick Links */}
         <div>
           <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <Link to="/about" className="hover:underline">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link to="/contactAdmin" className="hover:underline">
+              <Link to="/contact-admin" className="hover:underline">
                 Contact
               </Link>
             </li>
             <li>
-              <Link to="/doctors" className="hover:underline">
+              <Link to="/" className="hover:underline">
                 Find a Doctor
               </Link>
             </li>
-            <li>
-              <Link to="/login" className="hover:underline">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link to="/register" className="hover:underline">
-                Register
+               <li>
+              <Link to="/" className="hover:underline">
+                About Us
               </Link>
             </li>
           </ul>
         </div>
 
-        {/* Contact Info */}
         <div>
           <h3 className="text-lg font-semibold mb-3">Contact Us</h3>
           <p className="text-sm">Email: support@pistowellpoint.com</p>
