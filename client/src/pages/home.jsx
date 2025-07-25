@@ -73,7 +73,7 @@ const Home = () => {
           >
             {word}
           </h1>
-          <button className=" w-full bg-blue-300 p-7 font-lg rounded">Management Center</button>
+          <button className=" w-full text-3xl bg-blue-300 p-7 font-lg rounded">Management Center <br /> <small>Watching every move</small> </button>
         </div>
         
       ) : (

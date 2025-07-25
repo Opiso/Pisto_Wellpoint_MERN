@@ -33,7 +33,8 @@ const UserAppointments = () => {
           My Appointments
         </h2>
 
-        {appointments.map((appt) => (
+          {appointments.length === 0 ? (<p className="text-2xl text-center mt-5">You do not have any Appointments yet</p>) : (
+        appointments.map((appt) => (
           <div key={appt._id} className="border p-4 mb-4 rounded shadow">
             <p>
               <strong>Date:</strong> {appt.date} @ {appt.time}
@@ -60,7 +61,7 @@ const UserAppointments = () => {
               </span>
             </p>
           </div>
-        ))}
+         ) ) )}
       </div>
     </Layout>
   );
