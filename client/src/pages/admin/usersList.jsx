@@ -14,7 +14,7 @@ const UsersList = () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "http://localhost:5000/api/admin/get-all-users",
+        `${import.meta.env.VITE_API_URL}/api/admin/get-all-users`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -47,7 +47,7 @@ const UsersList = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:5000/api/admin/block-user",
+        `${import.meta.env.VITE_API_URL}/api/admin/block-user`,
         { userId, isBlocked: !currentStatus },
         {
           headers: {

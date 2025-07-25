@@ -13,7 +13,7 @@ const UpdateUserProfile = () => {
     try {
       dispatch(showLoading());
       const res = await axios.get(
-        "http://localhost:5000/api/user/get-user-profile",
+        `${import.meta.env.VITE_API_URL}/api/user/get-user-profile`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -48,7 +48,7 @@ const UpdateUserProfile = () => {
     try {
       dispatch(showLoading());
       const res = await axios.put(
-        "http://localhost:5000/api/user/update-user-profile",
+        `${import.meta.env.VITE_API_URL}/api/user/update-user-profile`,
         formData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

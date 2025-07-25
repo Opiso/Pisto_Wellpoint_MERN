@@ -83,7 +83,7 @@ const DoctorForm = () => {
 
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:5000/api/user/apply-doc-account",
+        `${import.meta.env.VITE_API_URL}/api/user/apply-doc-account`,
         payload,
         {
           headers: {

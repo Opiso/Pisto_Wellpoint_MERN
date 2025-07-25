@@ -37,7 +37,7 @@ const Signup = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:5000/api/user/signup",
+        `${import.meta.env.VITE_API_URL}/api/user/signup`,
         formData
       );
       dispatch(hideLoading());

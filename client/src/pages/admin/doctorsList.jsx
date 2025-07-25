@@ -13,7 +13,7 @@ const DoctorsList = () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "http://localhost:5000/api/admin/get-all-doctors",
+        `${import.meta.env.VITE_API_URL}/api/admin/get-all-doctors`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,7 +36,7 @@ const DoctorsList = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:5000/api/admin/change-doctor-status",
+        `${import.meta.env.VITE_API_URL}/api/admin/change-doctor-status`,
         { doctorId: record._id, userId: record.userId, status: status },
         {
           headers: {
@@ -57,7 +57,7 @@ const DoctorsList = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/admin/delete-doctor/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/admin/delete-doctor/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

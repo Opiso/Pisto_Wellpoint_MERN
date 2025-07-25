@@ -20,7 +20,7 @@ const BookAppointment = () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        `http://localhost:5000/api/doctor/get-doctor-profile/${doctorId}`,
+        `${import.meta.env.VITE_API_URL}/api/doctor/get-doctor-profile/${doctorId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -95,7 +95,7 @@ const BookAppointment = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/appointment/user/book-appointment`,
+        `${import.meta.env.VITE_API_URL}/api/appointment/user/book-appointment`,
         {
           doctorId: doctor._id,
           date,

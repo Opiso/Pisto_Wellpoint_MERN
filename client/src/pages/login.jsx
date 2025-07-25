@@ -23,7 +23,7 @@ const Login = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:5000/api/user/login",
+        `${import.meta.env.VITE_API_URL}/api/user/login`,
         formData
       );
       dispatch(hideLoading());

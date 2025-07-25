@@ -20,7 +20,7 @@ const Notifications = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:5000/api/user/mark-all-notifications-as-seen",
+        `${import.meta.env.VITE_API_URL}/api/user/mark-all-notifications-as-seen`,
         { userId: user._id },
         {
           headers: {
@@ -46,7 +46,7 @@ const Notifications = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:5000/api/user/delete-all-notifications",
+        `${import.meta.env.VITE_API_URL}/api/user/delete-all-notifications`,
         { userId: user._id },
         {
           headers: {

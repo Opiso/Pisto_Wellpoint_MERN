@@ -13,7 +13,7 @@ const UserProfile = () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "http://localhost:5000/api/user/get-user-profile",
+        `${import.meta.env.VITE_API_URL}/api/user/get-user-profile`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

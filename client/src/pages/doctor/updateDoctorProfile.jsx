@@ -15,7 +15,7 @@ const UpdateDoctorProfile = () => {
     try {
       dispatch(showLoading());
       const res = await axios.get(
-        `http://localhost:5000/api/doctor/fetch-doctor-profile`,
+        `${import.meta.env.VITE_API_URL}/api/doctor/fetch-doctor-profile`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -95,7 +95,7 @@ const UpdateDoctorProfile = () => {
     try {
       dispatch(showLoading());
       const res = await axios.put(
-        `http://localhost:5000/api/doctor/edit-profile`,
+        `${import.meta.env.VITE_API_URL}/api/doctor/edit-profile`,
         updatedFormData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

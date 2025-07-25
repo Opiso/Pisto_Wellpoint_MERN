@@ -15,7 +15,7 @@ const DoctorProfile = () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        `http://localhost:5000/api/doctor/doctor-profile/${doctorId}`,
+        `${import.meta.env.VITE_API_URL}/api/doctor/doctor-profile/${doctorId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
