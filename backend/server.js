@@ -27,7 +27,6 @@ app.use("/api/appointment", appointmentRoute);
 app.get('/', (req, res) => {
   res.send('✅ Backend is running!');
 });
-console.lo({VITE_API_URL})
 
 app.listen(PORT, () => {
   console.log(`Server running on Port ${PORT}`);
