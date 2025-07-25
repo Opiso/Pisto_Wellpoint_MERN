@@ -50,56 +50,72 @@ router.get("/doctor-profile/:id", auth, async (req, res) => {
   }
 });
 
-router.put("/update-doctor-profile/:id", auth, async (req, res) => {
+router.get("/fetch-doctor-profile", auth, async (req, res) => {
   try {
-    const { userId: userFields, ...doctorFields } = req.body;
-
-    const doctor = await Doctor.findByIdAndUpdate(req.params.id, doctorFields, {
-      new: true,
-    });
-
+    const userId = req.userId;
+    const doctor = await Doctor.findOne({ userId }).populate(
+      "userId", "fname lname email profilePicture");
     if (!doctor) {
       return res
         .status(404)
-        .send({ message: "Doctor not found", success: false });
+        .send({ message: "User not found", success: false });
     }
-    if (userFields && typeof userFields === "object") {
-      await User.findByIdAndUpdate(doctor.userId, userFields);
-    }
+        console.log('dd', doctor)
 
-    res.status(200).send({
-      success: true,
-      message: "Profile updated successfully",
-      data: doctor,
-    });
+    res.status(200).send({ success: true, data: doctor });
   } catch (error) {
     res
       .status(500)
-      .send({ message: "Error updating profile", error: error.message });
+      .send({ message: "Error fetching user profile", error: error.message });
   }
 });
 
-// router.put("/update-doctor-profile/:id", auth, async (req, res) => {
-//   try {
-//     const doctor = await Doctor.findOneAndUpdate({ userId: req.params.id }, req.body, {
-//       new: true,
-//     }).populate("userId", "fname lname email profilePicture");
-//     if (!doctor) {
-//       return res
-//         .status(404)
-//         .send({ message: "Doctor not found", success: false });
-//     }
-//     res.status(200).send({
-//       success: true,
-//       message: "Profile updated successfully",
-//       data: doctor,
-//     });
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .send({ message: "Error updating profile", error: error.message });
-//   }
-// });
+router.put("/edit-profile", auth, async (req, res) => {
+  try {
+    const userId = req.userId; 
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).send({ success: false, message: "User not found" });
+    }
+
+    const userUpdates = {
+      fname: req.body.fname || user.fname,
+      lname: req.body.lname || user.lname,
+      email: req.body.email || user.email,
+      gender: req.body.gender || user.gender,
+      profilePicture: req.body.profilePicture || user.profilePicture,
+    };
+
+    await User.findByIdAndUpdate(userId, userUpdates, { new: true });
+
+    if (user.isDoctor) {
+      const doctor = await Doctor.findOne({ userId });
+
+      if (!doctor) {
+        return res.status(404).send({ success: false, message: "Doctor profile not found" });
+      }
+
+      const doctorUpdates = {
+        phone: req.body.phone || doctor.phone,
+        website: req.body.website || doctor.website,
+        location: req.body.location || doctor.location,
+        specialization: req.body.specialization || doctor.specialization,
+        experience: req.body.experience || doctor.experience,
+        consultationFees: req.body.consultationFees || doctor.consultationFees,
+        workingHours: req.body.workingHours || doctor.workingHours,
+      };
+
+      await Doctor.findOneAndUpdate({ userId }, doctorUpdates, { new: true });
+    }
+
+    res.status(200).send({ success: true, message: "Profile updated successfully" });
+  } catch (error) {
+    console.error("Edit profile error:", error);
+    res.status(500).send({ success: false, message: "Server error", error: error.message });
+  }
+});
 
 router.post("/confirm-appointment", auth, async (req, res) => {
   const { appointmentId } = req.body;
@@ -125,7 +141,7 @@ router.post("/confirm-appointment", auth, async (req, res) => {
     user.unseenNotifications.push({
       type: "Appointment Confirmed",
       message: `Your appointment on ${appointment.date} at ${appointment.time} has been confirmed.`,
-      onClickPath: "user/appointments",
+      onClickPath: user.isDoctor? "/doctor/appointments" : "/user/appointments",
       data: {
         appointmentId,
       },
