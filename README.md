@@ -39,8 +39,8 @@ Make sure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/PLP-MERN-Stack-Development/week-8-capstone_-Opiso.git
-cd week-8-capstone_-Opiso/.git/
+git clone https://github.com/Opiso/Pisto_Wellpoint_MERN.git
+cd Pisto_Wellpoint_MERN
 
 cd backend
 pnpm install
