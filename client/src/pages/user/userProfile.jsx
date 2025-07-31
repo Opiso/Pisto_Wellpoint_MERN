@@ -45,7 +45,23 @@ const UserProfile = () => {
         <h1 className="text-2xl font-bold text-green-700 mb-4 text-center">
           User Profile
         </h1>
-
+        <div className="flex justify-center me-[30%]">
+          {user?.profilePicture && (
+            <img
+              src={`${import.meta.env.VITE_API_URL}${user.profilePicture}`}
+              alt="Profile"
+              style={{
+                // width:"clamp(60px, 20vw, 150px)",
+                width: "30%",
+                aspectRatio: "1",
+                objectFit: "cover",
+                margin: "20px 0",
+                borderRadius: "50%",
+              }}
+            />
+          )}
+        </div>{" "}
+        <br />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
           <div>
             <strong>Full Name:</strong> {user.fname} {user.lname}

@@ -47,7 +47,22 @@ const DoctorProfile = () => {
         <h1 className="text-2xl font-bold text-green-700 mb-4 text-center">
           Doctor Profile
         </h1>
-
+        <div className="flex justify-center me-[30%]">
+          {doctor?.userId.profilePicture && (
+            <img
+              src={`${import.meta.env.VITE_API_URL}${doctor.userId.profilePicture}`}
+              alt="Profile"
+              style={{
+                width: "30%",
+                aspectRatio: "1",
+                objectFit: "cover",
+                margin: "20px 0",
+                borderRadius: "50%",
+              }}
+            />
+          )}
+        </div>{" "}
+        <br />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
           <div>
             <strong>Full Name:</strong> {doctor.userId.fname}{" "}
@@ -75,7 +90,6 @@ const DoctorProfile = () => {
             <strong>Website:</strong> {doctor.website || "N/A"}
           </div>
         </div>
-
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-blue-800 mb-2">
             Working Hours

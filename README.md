@@ -42,6 +42,7 @@ Make sure you have the following installed:
 git clone https://github.com/PLP-MERN-Stack-Development/week-8-capstone_-Opiso.git
 cd week-8-capstone_-Opiso/.git/
 
+cd backend
 pnpm install
 
 .env
@@ -49,7 +50,10 @@ PORT=5000
 MONGO_URI=mongodb+srv://<your-mongodb-uri>
 JWT_SECRET=your_jwt_secret
 
+
 pnpm run dev
+node createAdmin.js #(admin login credentials in the createAdmin.js file)
+
 
 cd client
 pnpm install
@@ -94,4 +98,3 @@ LinkedIn: [Capis Otieno](https://www.linkedin.com/in/capis-otieno-506526332/)
 This project supports UN Sustainable Development Goal 3 – "Ensure healthy lives and promote well-being for all at all ages."
 
 By enabling affordable, digital-first access to medical care through smart scheduling, HealthBridge bridges gaps in access and transparency, especially in underserved communities.
->>>>>>> 92e6e6a (Create README.md)

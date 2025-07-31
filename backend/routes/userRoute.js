@@ -8,6 +8,8 @@ const auth = require("../middlewares/auth");
 const { type } = require("os");
 const { request } = require("http");
 const Appointment = require('../models/appointmentModel');
+const upload = require("../middlewares/upload");
+
 
 router.post("/signup", async (req, res) => {
   console.log("Incoming signup data:", req.body);
@@ -373,6 +375,13 @@ router.get("/user/appointments", auth, async (req, res) => {
   } catch (err) {
     res.status(500).send({ success: false, message: "Failed to load appointments" });
   }
+});
+
+router.post("/upload-profile-pic", upload.single("image"), async (req, res) => {
+  if (!req.file) return res.status(400).send({ success: false, message: "No file uploaded" });
+
+  const imageUrl = `/uploads/profilePic_uploads/${req.file.filename}`;
+  return res.status(200).send({ success: true, imageUrl });
 });
 
 module.exports = router;

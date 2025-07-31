@@ -58,7 +58,7 @@ const ProtectedRoutes = (props) => {
   if (user) {
     return props.children;
   } else {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 };
 

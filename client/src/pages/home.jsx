@@ -17,10 +17,10 @@ const Home = () => {
   useEffect(() => {
     let blinkCount = 0;
     let interval;
+    const maxBlinks = isAsking ? 3 : 2;
 
-    const maxBlinks = isAsking ? 5 : 10;
-
-    setWord(isAsking ? "Who Am I?" : "ADMIN ADMIN");
+    setShowWord(true);
+    setWord(isAsking ? "Who Am I?" : "ADMIN! ADMIN!");
 
     interval = setInterval(() => {
       setShowWord((prev) => !prev);
@@ -30,8 +30,7 @@ const Home = () => {
         setIsAsking((prev) => !prev);
         clearInterval(interval);
       }
-    }, 500);
-
+    }, 1200);
     return () => clearInterval(interval);
   }, [isAsking]);
 
@@ -66,22 +65,28 @@ const Home = () => {
       {user?.isAdmin ? (
         <div className="text-center mt-10">
           <h1
-            className={`text-4xl font-bold transition-all duration-300 mb-5 ${
-              isAsking ? "text-red-600" : "text-green-600"
+            className={`text-4xl font-bold mb-5 transition-all duration-300 ${
+              isAsking ? "text-red-600" : "text-green-600 slide-in"
             }`}
-            style={{ visibility: showWord ? "visible" : "hidden" }}
+            style={{
+              visibility: showWord ? "visible" : "hidden",
+            }}
           >
             {word}
           </h1>
-          <button className=" w-full text-3xl bg-blue-300 p-7 font-lg rounded">Management Center <br /> <small>Watching every move</small> </button>
+
+          <button className=" w-full text-3xl bg-blue-300 p-7 font-lg rounded">
+            Management Center <br /> <small>Watching every move</small>{" "}
+          </button>
         </div>
-        
       ) : (
         <div>
           <h1 className="text-3xl font-bold text-center mt-6 text-green-700">
             Welcome {user?.isDoctor ? `Doctor ${user?.fname}` : user?.fname}
           </h1>
-          <p className="text-center mb-5">Meet Your {user?.isDoctor ? 'Clients' : 'Doctor' }</p>
+          <p className="text-center mb-5">
+            Meet Your {user?.isDoctor ? "Clients" : "Doctor"}
+          </p>
           <hr />
 
           <div className="px-6 md:px-12">
@@ -94,15 +99,17 @@ const Home = () => {
                 doctors.map((doc) => (
                   <li
                     key={doc._id}
-                    onClick={() => navigate(`/user/book-appointment/${doc._id}`)}
-                    className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-600 hover:shadow-lg transition cursor-pointer"
+                    onClick={() =>
+                      navigate(`/user/book-appointment/${doc._id}`)
+                    }
+                    className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-600 hover:shadow-lg hover:bg-gray-300 transition cursor-pointer"
                   >
                     <h2 className="text-xl text-center font-bold text-gray-800 mb-2">
                       Dr. {doc.userId.fname} {doc.userId.lname}
                     </h2>
-                    <hr className="w-2/3 mx-auto border-t-2 border-gray-300 my-4" />
+                    <hr className="w-2/3 mx-auto border-t-2 border-gray-400 my-4" />
 
-                    <p className="text-gray-700 mb-1">
+                    <p className="text-gray-900 mb-1">
                       <span className="font-semibold">Specialization:</span>{" "}
                       {doc.specialization}
                     </p>

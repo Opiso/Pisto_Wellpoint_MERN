@@ -42,6 +42,7 @@
 }
 .login-page, .reg-page {
   min-height: 100vh;
+  align-items: center;
 }
 .mail-link{
   color: hsl(240, 90%, 68%);
@@ -52,5 +53,61 @@
   
 }
 button{
+  cursor: pointer;
+}
+@keyframes slideRight {
+  0% {
+    transform: translateX(-100%);
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+.slide-in {
+  animation: slideRight 1s ease-in-out forwards;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+@keyframes expand {
+  0% {
+    transform: scale(1); 
+  }
+  50% {
+    transform: scale(1.1); 
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.button-expand {
+  animation: expand 1.5s ease-in-out infinite;
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.button-expand:hover {
+  background-color: #071c57; /* Darker shade when hovering */
   cursor: pointer;
 }

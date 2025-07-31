@@ -40,11 +40,15 @@ const Layout = ({ children }) => {
       path: "/applyDoctor",
       icon: "ri-nurse-fill",
     },
-    {
-      name: "Profile",
-      path: `/user/profile/${user._id}`,
-      icon: "ri-user-line",
-    },
+    ...(user
+      ? [
+          {
+            name: "Profile",
+            path: `/user/profile/${user._id}`,
+            icon: "ri-user-line",
+          },
+        ]
+      : []),
   ];
   const adminMenu = [
     {
@@ -67,11 +71,15 @@ const Layout = ({ children }) => {
       path: "/admin/feedbacks",
       icon: "ri-feedback-fill",
     },
-    {
-      name: "Profile",
-      path: `/admin/profile/${user._id}`,
-      icon: "ri-user-line",
-    },
+    ...(user
+      ? [
+          {
+            name: "Profile",
+            path: `/user/profile/${user._id}`,
+            icon: "ri-user-line",
+          },
+        ]
+      : []),
   ];
   const doctorMenu = [
     {
@@ -85,11 +93,15 @@ const Layout = ({ children }) => {
       icon: "ri-user-heart-line",
     },
 
-    {
-      name: "Profile",
-      path: `/doctor-profile/${user._id}`,
-      icon: "ri-user-line",
-    },
+    ...(user
+      ? [
+          {
+            name: "Profile",
+            path: `/doctor-profile/${user._id}`,
+            icon: "ri-user-line",
+          },
+        ]
+      : []),
   ];
   const menuToBeRendered = user?.isAdmin
     ? adminMenu
@@ -103,7 +115,7 @@ const Layout = ({ children }) => {
         <div className="sidebar">
           <div className="sidebar-header">
             <h1>PW</h1>
-            <h2 className="text-xl text-blue-400 role ms-2">{role}</h2>
+            {user && <h2 className="text-xl text-blue-400 role ms-2">{role}</h2>}
           </div>
           <div className="menu">
             {menuToBeRendered.map((menu, index) => {
@@ -126,10 +138,10 @@ const Layout = ({ children }) => {
               className={"flex menu-item"}
               onClick={() => {
                 localStorage.clear();
-                navigate("/login");
+                navigate("/");
               }}
             >
-              <Link to="/login">
+              <Link to="/">
                 <i className="ri-logout-circle-r-line"></i>
                 {!collapsed && "Logout"}
               </Link>
@@ -137,7 +149,7 @@ const Layout = ({ children }) => {
           </div>
         </div>
         <div className="content">
-          <div className="header">
+          <div className="header relative flex items-center justify-between px-4">
             <div>
               {!collapsed ? (
                 <i
@@ -151,9 +163,10 @@ const Layout = ({ children }) => {
                 ></i>
               )}
             </div>
-                            <h1 className="text-2xl text-blue-500 font-bold bg-gray-300 app-name p-3 rounded">{appName}</h1>
-
-            <div className="flex items-center">
+            <h1 className="absojlute left-1/2 transform-translate-x-1/2 text-2xl text-blue-500 font-bold bg-gray-50 app-name p-3 rounded">
+              {appName}
+            </h1>
+            <div className="flex items-center ml-auto">
               <div className="relative inline-block">
                 <i
                   className="ri-notification-line header-action-icon text-2xl text-gray-800"
@@ -165,38 +178,51 @@ const Layout = ({ children }) => {
                   </span>
                 )}
               </div>
-
-              <div
-                className="relative inline-block text-left"
-                ref={dropdownRef}
-              >
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-gray-100 transition"
+              {user ? (
+                <div
+                  className="relative inline-block text-left"
+                  ref={dropdownRef}
                 >
-                  <span className="text-gray-800 font-medium">
-                    {user?.fname}
-                  </span>
-                  <i className="ri-arrow-down-s-line"></i>
-                </button>
+                  <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-gray-100 transition"
+                  >
+                    <img
+                      className="text-gray-800 font-medium"
+                      src={`${import.meta.env.VITE_API_URL}${
+                        user?.profilePicture
+                      }`}
+                      alt={user?.fname}
+                      style={{
+                        width: "50px",
+                        aspectRatio: "1",
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                      }}
+                    />
+                    <i className="ri-arrow-down-s-line"></i>
+                  </button>
 
-                {isOpen && (
-                  <div className="absolute right-0 z-10 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-md">
-                    <Link
-                      className="anchof"
-                      to={
-                        user.isDoctor
-                          ? `/doctor/editProfile`
-                          : "/user/editProfile"
-                      }
-                    >
-                      <span className="text-blue-700 hover:text-red-900 transition-colors duration-200">
-                        Edit Profile
-                      </span>
-                    </Link>
-                  </div>
-                )}
-              </div>
+                  {isOpen && (
+                    <div className="absolute right-0 z-10 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-md">
+                      <Link
+                        className="anchof"
+                        to={
+                          user.isDoctor
+                            ? `/doctor/editProfile`
+                            : "/user/editProfile"
+                        }
+                      >
+                        <span className="text-blue-700 hover:text-red-900 transition-colors duration-200">
+                          Edit Profile
+                        </span>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="body">{children}</div>

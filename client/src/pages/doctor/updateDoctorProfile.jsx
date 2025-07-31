@@ -84,6 +84,44 @@ const UpdateDoctorProfile = () => {
     }
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formDataFile = new FormData();
+    formDataFile.append("image", file);
+
+    try {
+      dispatch(showLoading());
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/user/upload-profile-pic`,
+        formDataFile,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      dispatch(hideLoading());
+
+      if (res.data.success) {
+        toast.success("Image uploaded");
+        setFormData((prev) => ({
+          ...prev,
+          profilePicture: res.data.imageUrl,
+        }));
+      } else {
+        toast.error("Upload failed");
+      }
+    } catch (err) {
+      dispatch(hideLoading());
+      toast.error("Upload error");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { fname, lname, email, ...rest } = formData;
@@ -125,6 +163,38 @@ const UpdateDoctorProfile = () => {
           <form action="" className="doc-form " onSubmit={handleSubmit}>
             <div>
               <h2 className="card-title">Personal Information:</h2>
+            </div>
+            <div className="mb-5 mt-5">
+              <label
+                htmlFor="profilePicture"
+                className="cursor-pointer bg-green-300 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+              >
+                Upload Image
+              </label>
+              <input
+                id="profilePicture"
+                type="file"
+                accept="image/*"
+                name="profilePicture"
+                onChange={handleImageUpload}
+                className="hidden"
+              />{" "}
+              <br /> <br />
+              {formData?.profilePicture && (
+                <img
+                  src={`${import.meta.env.VITE_API_URL}${
+                    formData.profilePicture
+                  }`}
+                  alt="Profile"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    objectFit: "cover",
+                    marginTop: "10px",
+                    borderRadius: "50%",
+                  }}
+                />
+              )}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="mb-5">

@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import toast from 'react-hot-toast';
-import axios from 'axios';
+import toast from "react-hot-toast";
+import axios from "axios";
 import { hideLoading, showLoading } from "../redux/alertsSlice";
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
       if (response.data.success) {
         toast.success(response.data.message);
         toast("Redirecting to Home Page");
-        localStorage.setItem('token', response.data.data);
+        localStorage.setItem("token", response.data.data);
         navigate("/");
       } else {
         toast.error(response.data.message);
@@ -38,16 +38,17 @@ const Login = () => {
     } catch (err) {
       dispatch(hideLoading());
       toast.error("Something went wrong");
-      console.error(err)
+      console.error(err);
     }
   };
   return (
-    <div className="login-page bg-gray-700 m-3">
+    <div className="login-page bg-gray-700 mv-3 ">
+      <div className="flex items-center h-screen">
       <div className="max-w-[50%] mx-auto border bg-white mb-3 border-green-500 rounded-lg shadow-md p-6">
-        <h2 className="page-title text-xl flex justify-center font-semibold mb-3">
-          Login Page
-        </h2>
-        <form action="" className="login-form" onSubmit={handleSubmit}>
+        <form action="" className="login-form " onSubmit={handleSubmit}>
+          <h2 className="page-title text-xl flex justify-center font-semibold mb-3">
+            Login Page
+          </h2>
           <div className="mb-5">
             <label>Email location:</label>
             <input
@@ -73,17 +74,17 @@ const Login = () => {
           <button
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
-            style={{cursor:  'pointer'}}
+            style={{ cursor: "pointer" }}
           >
             Login
           </button>
         </form>
         Don't have an account?{" "}
         <Link to="/signup">
-          <span  className="text-blue-600 hover:underline">Register</span>
+          <span className="text-blue-600 hover:underline">Register</span>
         </Link>
       </div>
-      <div className="p-1"></div>
+      </div>
     </div>
   );
 };

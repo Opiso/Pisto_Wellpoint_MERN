@@ -30,9 +30,9 @@
     margin-bottom: 2vh;
     height: 10vh;
     padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: space-between; */
 }
 
 .body {
@@ -78,6 +78,12 @@
     color: rgb(2, 83, 83);
     text-decoration: underline;
 }
+.app-name{
+    font: bold;
+    font-family:'Ariagl Narrow Bold', 'sans-serif' ;
+    position: absolute;
+    transform: translateX(-50%);
+}
 
 @media  screen and (max-width : 760px) {
     .menu {
@@ -88,6 +94,9 @@
     }
     .app-name{
         padding: 2px;
+        position: initial;
+        transform: translateX(0);
+        margin-left: 3px;
     }
     
 }

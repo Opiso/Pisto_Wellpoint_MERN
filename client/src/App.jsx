@@ -23,6 +23,7 @@ import ContactAdmin from "./pages/contactAdmin";
 import UserFeedbacks from "./pages/admin/userFeedbacks";
 import DoctorAppointments from "./pages/doctor/doctorAppointments";
 import UserAppointments from "./pages/user/userAppointments";
+import RedirectionPage from "./components/redirectionPage";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -52,11 +53,19 @@ function App() {
           }
         />
         <Route
-          path="/"
+          path="/home"
           element={
             <ProtectedRoutes>
               <Home />
             </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PublicRoutes>
+              <RedirectionPage />
+            </PublicRoutes>
           }
         />
         <Route
@@ -104,7 +113,7 @@ function App() {
           element={
             <ProtectedRoutes>
               <DoctorProfile />
-            </ProtectedRoutes> 
+            </ProtectedRoutes>
           }
         />
         <Route
