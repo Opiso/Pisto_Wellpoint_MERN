@@ -63,7 +63,7 @@ const Home = () => {
   return (
     <Layout>
       {user?.isAdmin ? (
-        <div className="text-center mt-10">
+        <div className="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center bg-gradient-to-br from-blue-50 to-white">
           <h1
             className={`text-4xl font-bold mb-5 transition-all duration-300 ${
               isAsking ? "text-red-600" : "text-green-600 slide-in"
