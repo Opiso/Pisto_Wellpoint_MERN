@@ -12,9 +12,19 @@ const path = require("path");
 
 const app = express();
 
+const allowedOrigins = process.env.FRONTEND_URL.split(",");
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -27,9 +37,8 @@ app.use("/api/admin", adminRoute);
 app.use("/api/doctor", doctorRoute);
 app.use("/api/appointment", appointmentRoute);
 
-
-app.get('/', (req, res) => {
-  res.send('✅ Backend is running!');
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running!");
 });
 
 app.listen(PORT, () => {
