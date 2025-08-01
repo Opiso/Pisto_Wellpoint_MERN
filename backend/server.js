@@ -14,21 +14,17 @@ const app = express();
 
 app.set("trust proxy", 1);
 
-const allowedOrigins = process.env.FRONTEND_URLS?.split(",") || [];
+const allowedOrigins = (process.env.FRONTEND_URLS?.split(",") || []).map(
+  (origin) => origin.trim().replace(/\/+$/, "")
+);
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // e.g. mobile or curl
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      return callback(new Error("Not allowed by CORS"));
-    },
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Origin", "Content-Type", "Authorization"],
-    exposedHeaders: ["Set-Cookie"], // This Helps cookies get recognized
+    exposedHeaders: ["Set-Cookie"],
   })
 );
 
@@ -40,14 +36,13 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Serve static files (for React app in the 'dist' folder)
 app.use(express.static(path.join(__dirname, "dist")));
 
-
 app.use("/api/user", userRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api/doctor", doctorRoute);
 app.use("/api/appointment", appointmentRoute);
 
 // // Catch-all route to serve index.html for React Router to handle frontend navigation
-app.get("*", (req, res) => {
+app.get("*splat", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
