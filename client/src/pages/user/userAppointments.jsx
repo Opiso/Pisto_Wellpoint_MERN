@@ -8,8 +8,9 @@ const UserAppointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const res = await axios.get("/api/user/user/appointments", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/user/appointments`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        withCredentials: true,
       });
 
       if (res.data.success) {

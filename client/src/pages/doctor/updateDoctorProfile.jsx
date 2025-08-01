@@ -18,6 +18,7 @@ const UpdateDoctorProfile = () => {
         `${import.meta.env.VITE_API_URL}/api/doctor/fetch-doctor-profile`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());
@@ -102,6 +103,7 @@ const UpdateDoctorProfile = () => {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
 
@@ -137,6 +139,7 @@ const UpdateDoctorProfile = () => {
         updatedFormData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());

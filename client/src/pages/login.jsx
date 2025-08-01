@@ -24,7 +24,8 @@ const Login = () => {
       dispatch(showLoading());
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/user/login`,
-        formData
+        formData,
+        {withCredentials: true},
       );
       dispatch(hideLoading());
       if (response.data.success) {

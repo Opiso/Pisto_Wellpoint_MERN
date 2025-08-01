@@ -16,12 +16,13 @@ const ProtectedRoutes = (props) => {
   const getUser = async () => {
     try {
       const response = await axios.post(
-        "/api/user/get-user-info-by-id",
+        `${import.meta.env.VITE_API_URL}/api/user/get-user-info-by-id`,
         {},
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());

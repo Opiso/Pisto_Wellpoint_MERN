@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/login";

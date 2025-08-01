@@ -16,6 +16,7 @@ const UpdateUserProfile = () => {
         `${import.meta.env.VITE_API_URL}/api/user/get-user-profile`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());
@@ -60,6 +61,7 @@ const UpdateUserProfile = () => {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
 
@@ -90,6 +92,7 @@ const UpdateUserProfile = () => {
         formData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());

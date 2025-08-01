@@ -18,6 +18,7 @@ const DoctorsList = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());
@@ -42,6 +43,7 @@ const DoctorsList = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());
@@ -62,6 +64,7 @@ const DoctorsList = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
 
@@ -72,7 +75,6 @@ const DoctorsList = () => {
         alert("Failed to delete doctor.");
       }
     } catch (err) {
-      console.error("Error deleting doctor:", err);
       alert("Server error while deleting doctor.");
     }
   };

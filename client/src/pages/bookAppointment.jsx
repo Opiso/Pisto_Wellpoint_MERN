@@ -25,6 +25,7 @@ const BookAppointment = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());
@@ -105,6 +106,7 @@ const BookAppointment = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
 

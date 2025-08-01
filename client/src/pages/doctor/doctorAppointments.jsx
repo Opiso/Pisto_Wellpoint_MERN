@@ -11,8 +11,11 @@ const DoctorAppointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const res = await axios.get("/api/appointment/doctor/appointments", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/appointment/doctor/appointments`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        withCredentials: true,
       });
       setAppointments(res.data.data);
     } catch (err) {
@@ -23,10 +26,11 @@ const DoctorAppointments = () => {
   const confirmAppointment = async (id) => {
     try {
       const res = await axios.post(
-        "/api/doctor/confirm-appointment",
+        `${import.meta.env.VITE_API_URL}/api/doctor/confirm-appointment`,
         { appointmentId: id },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: true,
         }
       );
       toast.success("Confirmed");
@@ -39,15 +43,16 @@ const DoctorAppointments = () => {
   const blockTime = async () => {
     try {
       await axios.post(
-        "/api/doctor/block-time",
+        `${import.meta.env.VITE_API_URL}/api/doctor/block-time`,
         { date: blockDate, from: blockFrom, to: blockTo },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: true,
         }
       );
       toast.success("Time blocked");
     } catch (err) {
-      toast.error("Failed to block time");
+      toast.error("Failed to block the time");
     }
   };
 
@@ -71,7 +76,7 @@ const DoctorAppointments = () => {
               {appt.userId.lname}
             </p>
             <p>
-                <strong>Email: </strong>
+              <strong>Email: </strong>
               <a href={`mailto: ${appt.userId.email}`} className="mail-link">
                 {appt.userId.email}
               </a>

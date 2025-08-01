@@ -7,9 +7,8 @@ const bcrypt = require("bcrypt");
 const auth = require("../middlewares/auth");
 const { type } = require("os");
 const { request } = require("http");
-const Appointment = require('../models/appointmentModel');
+const Appointment = require("../models/appointmentModel");
 const upload = require("../middlewares/upload");
-
 
 router.post("/signup", async (req, res) => {
   console.log("Incoming signup data:", req.body);
@@ -71,6 +70,11 @@ router.post("/login", async (req, res) => {
     } else {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: "1d",
+      });
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Secure cookies only in production
+        sameSite: "None", // This is required for cross-origin cookies
       });
       return res
         .status(200)
@@ -328,7 +332,7 @@ router.post("/contact-admin", auth, async (req, res) => {
         .send({ message: "No admin found", success: false });
     }
 
-    const user = await User.findById(userId );
+    const user = await User.findById(userId);
     if (!user) {
       return res
         .status(404)
@@ -373,12 +377,17 @@ router.get("/user/appointments", auth, async (req, res) => {
 
     res.send({ success: true, data: appointments });
   } catch (err) {
-    res.status(500).send({ success: false, message: "Failed to load appointments" });
+    res
+      .status(500)
+      .send({ success: false, message: "Failed to load appointments" });
   }
 });
 
 router.post("/upload-profile-pic", upload.single("image"), async (req, res) => {
-  if (!req.file) return res.status(400).send({ success: false, message: "No file uploaded" });
+  if (!req.file)
+    return res
+      .status(400)
+      .send({ success: false, message: "No file uploaded" });
 
   const imageUrl = `/uploads/profilePic_uploads/${req.file.filename}`;
   return res.status(200).send({ success: true, imageUrl });

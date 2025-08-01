@@ -26,6 +26,7 @@ const Notifications = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());
@@ -52,6 +53,7 @@ const Notifications = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());

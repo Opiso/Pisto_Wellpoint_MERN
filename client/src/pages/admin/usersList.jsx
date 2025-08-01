@@ -19,6 +19,7 @@ const UsersList = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());
@@ -53,6 +54,7 @@ const UsersList = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
       dispatch(hideLoading());

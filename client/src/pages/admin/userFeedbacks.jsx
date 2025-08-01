@@ -17,10 +17,11 @@ const UserFeedbacks = () => {
 
   const fetchFeedbacks = async () => {
     try {
-      const res = await axios.get("/api/admin/admin/feedbacks", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin/admin/feedbacks`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        withCredentials: true,
       });
       if (res.data.success) {
         setFeedbacks(res.data.data);

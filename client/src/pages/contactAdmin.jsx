@@ -14,12 +14,13 @@ const ContactAdmin = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "/api/user/contact-admin",
+        `${import.meta.env.VITE_API_URL}/api/user/contact-admin`,
         { subject, message },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+          withCredentials: true,
         }
       );
 

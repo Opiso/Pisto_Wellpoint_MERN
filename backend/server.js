@@ -12,21 +12,29 @@ const path = require("path");
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 const allowedOrigins = process.env.FRONTEND_URLS?.split(",") || [];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // e.g. mobile or curl
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true,
-}));
-
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // e.g. mobile or curl
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Origin", "Content-Type", "Authorization"],
+    exposedHeaders: ["Set-Cookie"], // This Helps cookies get recognized
+  })
+);
 
 app.use(express.json());
+
+//  Serve static files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/user", userRoute);
@@ -39,5 +47,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on Port ${PORT}`);
+  console.log(`🚀 Server running on Port ${PORT}`);
 });
