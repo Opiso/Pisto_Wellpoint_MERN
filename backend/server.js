@@ -42,7 +42,7 @@ app.use("/api/doctor", doctorRoute);
 app.use("/api/appointment", appointmentRoute);
 
 // // Catch-all route to serve index.html for React Router to handle frontend navigation
-app.get("*splat", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
