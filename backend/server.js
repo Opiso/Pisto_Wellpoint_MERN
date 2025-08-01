@@ -41,10 +41,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "dist")));
 
 
-// app.use("/api/user", userRoute);
-// app.use("/api/admin", adminRoute);
-// app.use("/api/doctor", doctorRoute);
-// app.use("/api/appointment", appointmentRoute);
+app.use("/api/user", userRoute);
+app.use("/api/admin", adminRoute);
+app.use("/api/doctor", doctorRoute);
+app.use("/api/appointment", appointmentRoute);
 
 // // Catch-all route to serve index.html for React Router to handle frontend navigation
 app.get("*", (req, res) => {
