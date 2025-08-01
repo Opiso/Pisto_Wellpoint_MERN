@@ -37,10 +37,19 @@ app.use(express.json());
 //  Serve static files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Serve static files (for React app in the 'dist' folder)
+app.use(express.static(path.join(__dirname, "dist")));
+
+
 app.use("/api/user", userRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api/doctor", doctorRoute);
 app.use("/api/appointment", appointmentRoute);
+
+// Catch-all route to serve index.html for React Router to handle frontend navigation
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.get("/", (req, res) => {
   res.send("✅ Backend is running!");
