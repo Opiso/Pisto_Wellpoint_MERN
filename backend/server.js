@@ -47,9 +47,9 @@ app.use(express.static(path.join(__dirname, "dist")));
 // app.use("/api/appointment", appointmentRoute);
 
 // // Catch-all route to serve index.html for React Router to handle frontend navigation
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "dist", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.get("/", (req, res) => {
   res.send("✅ Backend is running!");
