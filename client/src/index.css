@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .loader-parent {
-  position: fixed; /* stays on top */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -9,8 +9,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.404); /* semi-transparent black */
-  z-index: 9999; /* stay above everything */
+  background-color: rgba(0, 0, 0, 0.404); 
+  z-index: 9999; 
 }
 
 .loader {
@@ -55,20 +55,6 @@
 button{
   cursor: pointer;
 }
-@keyframes slideRight {
-  0% {
-    transform: translateX(-100%);
-    visibility: visible;
-  }
-  100% {
-    transform: translateX(0);
-    visibility: visible;
-  }
-}
-
-.slide-in {
-  animation: slideRight 1s ease-in-out forwards;
-}
 
 @keyframes slideRight {
   from {
@@ -81,6 +67,9 @@ button{
   }
 }
 
+.slide-in {
+  animation: slideRight 1s ease-in-out forwards;
+}
 
 @keyframes expand {
   0% {
