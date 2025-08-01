@@ -28,10 +28,8 @@ coverage/
 Thumbs.db
 
 # Build directories
-frontend/build/
-backend/dist/
-dist/
-build/
+# frontend/build/
+# build/
 
 # IDEs and editors
 .vscode/
