@@ -38,7 +38,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+    <div className="flex items-center justify-center min-h-screen bg-gray-700 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded shadow">
         <h2 className="text-2xl font-semibold mb-4 text-center">Reset Password</h2>
         <form onSubmit={handleReset} className="space-y-4">
@@ -49,6 +49,7 @@ const ResetPassword = () => {
             <input
               id="password"
               type="password"
+              placeholder='Enter New Password '
               className="w-full mt-1 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-400"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
