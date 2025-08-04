@@ -1,6 +1,5 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -10,81 +9,105 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError("");
-    setSuccess("");
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { email, password } = formData;
+    if (!email || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
     try {
       dispatch(showLoading());
-      const response = await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/user/login`,
         formData,
-        {withCredentials: true},
+        { withCredentials: true }
       );
       dispatch(hideLoading());
-      if (response.data.success) {
-        toast.success(response.data.message);
-        toast("Redirecting to Home Page");
-        localStorage.setItem("token", response.data.data);
+
+      if (res.data.success) {
+        toast.success(res.data.message || "Login successful");
+        localStorage.setItem("token", res.data.data);
         navigate("/");
       } else {
-        toast.error(response.data.message);
+        toast.error(res.data.message || "Invalid credentials");
       }
     } catch (err) {
       dispatch(hideLoading());
-      toast.error("Something went wrong");
+      toast.error("Login failed. Please try again.");
       console.error(err);
     }
   };
+
   return (
-    <div className="login-page bg-gray-700 mv-3 ">
-      <div className="flex items-center h-screen">
-      <div className="max-w-[50%] mx-auto border bg-white mb-3 border-green-500 rounded-lg shadow-md p-6">
-        <form action="" className="login-form " onSubmit={handleSubmit}>
-          <h2 className="page-title text-xl flex justify-center font-semibold mb-3">
-            Login Page
-          </h2>
-          <div className="mb-5">
-            <label>Email location:</label>
+    <div className="flex bg-gray-700 items-center justify-center min-h-screen px-4">
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium mb-1">
+              Email Address
+            </label>
             <input
-              className=" p-2 rounded border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-600"
               type="email"
               name="email"
+              id="email"
+              placeholder="Enter your email"
+              value={formData.email}
               onChange={handleChange}
               required
-              style={{ width: "100%", border: "1px solid green" }}
+              className="w-full px-3 py-2 border border-green-500 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
             />
           </div>
-          <div className="mb-5">
-            <label className="">Password:</label>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium mb-1"
+            >
+              Password
+            </label>
             <input
-              className="p-2 rounded border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-600"
               type="password"
               name="password"
+              id="password"
+              placeholder="Enter your password"
+              value={formData.password}
               onChange={handleChange}
               required
-              style={{ width: "100%", border: "1px solid green" }}
+              className="w-full px-3 py-2 border border-green-500 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
             />
           </div>
+
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
-            style={{ cursor: "pointer" }}
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition"
           >
             Login
           </button>
         </form>
-        Don't have an account?{" "}
-        <Link to="/signup">
-          <span className="text-blue-600 hover:underline">Register</span>
-        </Link>
-      </div>
+        <div className="flex justify-between items-center text-sm mt-[-13px]">
+          <Link to="/forgot-password">
+            <span className="text-blue-600 text-sm hover:underline">
+              Forgot Password?
+            </span>
+          </Link>
+          <span>
+            Don’t have an account?{" "}
+            <Link to="/signup">
+              <span className="text-blue-600 text-sm hover:underline">
+                Register
+              </span>
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true },
     gender: { type: String, required: true },
     password: { type: String, required: true },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     isDoctor: { type: Boolean, default: false },
     isAdmin: { type: Boolean, default: false },
     isBlocked: { type: Boolean, default: false },

@@ -9,6 +9,7 @@ const { type } = require("os");
 const { request } = require("http");
 const Appointment = require("../models/appointmentModel");
 const upload = require("../middlewares/upload");
+const { forgotPassword } = require("../controllers/authController");
 
 router.post("/signup", async (req, res) => {
   console.log("Incoming signup data:", req.body);
@@ -391,6 +392,36 @@ router.post("/upload-profile-pic", upload.single("image"), async (req, res) => {
 
   const imageUrl = `/uploads/profilePic_uploads/${req.file.filename}`;
   return res.status(200).send({ success: true, imageUrl });
+});
+
+router.post("/forgot-password", forgotPassword);
+
+router.post("/reset-password/:token", async (req, res) => {
+  const { token } = req.params;
+  const { newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({
+    resetPasswordToken: token,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return res.status(400).json({ message: "Invalid or expired token" });
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  user.password = hashedPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  await user.save();
+
+  console.log("Password reset successful for user:", user.email, user.password);
+  res.status(200).send({ message: "Password reset successful", success: true });
+} catch (error) {
+  console.error("Error resetting password:", error);
+  res.status(500).send({ message: "Server error", error: error.message, success: false });
+}
 });
 
 module.exports = router;

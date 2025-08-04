@@ -5,7 +5,7 @@ const Footer = () => {
   const appName = "Pisto WellPoint";
 
   return (
-    <footer className="bg-green-900 text-white mt-12">
+    <footer className="bg-green-900 text-white mt-1">
       <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8">
         <div>
           <h2 className="text-xl font-bold mb-3">{appName}</h2>

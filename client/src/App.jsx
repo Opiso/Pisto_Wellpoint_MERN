@@ -26,11 +26,13 @@ import UserFeedbacks from "./pages/admin/userFeedbacks";
 import DoctorAppointments from "./pages/doctor/doctorAppointments";
 import UserAppointments from "./pages/user/userAppointments";
 import RedirectionPage from "./components/redirectionPage";
+import ForgotPassword from "./pages/forgotPassword";
+import ResetPassword from "./pages/resetPassword";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
-    <BrowserRouter >
+    <BrowserRouter>
       {loading && (
         <div className="loader-parent m-3 bg-gray-100">
           <div className="loader"></div>
@@ -67,6 +69,22 @@ function App() {
           element={
             <PublicRoutes>
               <RedirectionPage />
+            </PublicRoutes>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <PublicRoutes>
+              <ForgotPassword />
+            </PublicRoutes>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <PublicRoutes>
+              <ResetPassword />
             </PublicRoutes>
           }
         />

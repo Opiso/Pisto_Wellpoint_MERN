@@ -57,9 +57,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="reg-pamge bg-gray-700">
-      <div className="flex items-center h-scree">
-        <div className="mt-9 max-w-[50%] mx-auto bg-white m-1 border border-green-500 rounded-lg shadow-md p-6">
+    <div className="flex bg-gray-700 items-center justify-center min-h-screen px-4">
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
           <h2 className="page-title text-xl text-blue-700 flex justify-center font-semibold mb-2">
             Registration Page
           </h2>
@@ -177,9 +176,8 @@ const Signup = () => {
           </form>
           Already have an account?{" "}
           <Link to="/login">
-            <span className="text-blue-600 hover:underline">Login</span>
+            <span className="text-blue-600 text-sm hover:underline">Login</span>
           </Link>
-        </div>
       </div>
       <div className="p-1"></div>
     </div>

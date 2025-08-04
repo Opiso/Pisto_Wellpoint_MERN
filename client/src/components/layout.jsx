@@ -115,7 +115,9 @@ const Layout = ({ children }) => {
         <div className="sidebar">
           <div className="sidebar-header">
             <h1>PW</h1>
-            {user && <h2 className="text-xl text-blue-400 role ms-2">{role}</h2>}
+            {user && (
+              <h2 className="text-xl text-blue-400 role ms-2">{role}</h2>
+            )}
           </div>
           <div className="menu">
             {menuToBeRendered.map((menu, index) => {
@@ -163,7 +165,7 @@ const Layout = ({ children }) => {
                 ></i>
               )}
             </div>
-            <h1 className="absojlute left-1/2 transform-translate-x-1/2 text-2xl text-blue-500 font-bold bg-gray-50 app-name p-3 rounded">
+            <h1 className="left-1/2 transform-translate-x-1/2 text-2xl text-blue-500 font-bold bg-gray-50 app-name p-3 rounded">
               {appName}
             </h1>
             <div className="flex items-center ml-auto">
@@ -226,8 +228,10 @@ const Layout = ({ children }) => {
             </div>
           </div>
           <div className="body">{children}</div>
-          <Footer />
         </div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );

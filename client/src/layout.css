@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .main{
-    padding: 2vh;
+    padding: 0vh;
 
 }
 
@@ -9,7 +9,7 @@
     background-color: rgb(7, 41, 19);
     border-radius: 10px;
     box-shadow: 0 0 3px gray;
-    margin-right: 2vh;
+    margin-right: 1vh;
     min-height: 100%;
     padding: 10px;
 }
@@ -27,12 +27,9 @@
     background-color: whitesmoke;
     border-radius: 5px;
     box-shadow: 0 0 2px gray;
-    margin-bottom: 2vh;
+    margin-bottom: 1vh;
     height: 10vh;
     padding: 5px;
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: space-between; */
 }
 
 .body {
@@ -47,7 +44,7 @@
     color: white;
     text-decoration: none;
     font-size: 18px;
-    margin: 0 10px;
+    margin: 0;
     
 }
 .menu {

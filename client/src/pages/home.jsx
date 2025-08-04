@@ -91,7 +91,7 @@ const Home = () => {
           <hr />
 
           <div className="px-6 md:px-12">
-            <h2 className="text-2xl font-semibold text-pink-800 mb-6">
+            <h2 className="text-2xl font-semibold text-pink-800 mt-6 mb-1">
               Doctors
             </h2>
 
