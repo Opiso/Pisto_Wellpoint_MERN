@@ -111,7 +111,7 @@ const Layout = ({ children }) => {
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
   return (
     <div className="main p-2">
-      <div className="flex layout">
+      <div className="flex flex-grow layout">
         <div className="sidebar">
           <div className="sidebar-header">
             <h1>PW</h1>
@@ -136,6 +136,7 @@ const Layout = ({ children }) => {
                 </div>
               );
             })}
+            {user && (
             <div
               className={"flex menu-item"}
               onClick={() => {
@@ -148,6 +149,7 @@ const Layout = ({ children }) => {
                 {!collapsed && "Logout"}
               </Link>
             </div>
+            )}
           </div>
         </div>
         <div className="content">
@@ -230,7 +232,7 @@ const Layout = ({ children }) => {
           <div className="body">{children}</div>
         </div>
       </div>
-      <div>
+      <div className="w-screen">
         <Footer />
       </div>
     </div>
