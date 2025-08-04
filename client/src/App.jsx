@@ -30,7 +30,7 @@ import RedirectionPage from "./components/redirectionPage";
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
-    <>
+    <BrowserRouter  basename = "/Pisto_Wellpoint_MERN">
       {loading && (
         <div className="loader-parent m-3 bg-gray-100">
           <div className="loader"></div>
@@ -185,7 +185,7 @@ function App() {
         <Route path="/user/blocked-user" element={<BlockedUser />} />
         <Route path="/contact-admin" element={<ContactAdmin />} />
       </Routes>
-    </>
+    </BrowserRouter>
   );
 }
 
