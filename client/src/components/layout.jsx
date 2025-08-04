@@ -128,6 +128,10 @@ const Layout = ({ children }) => {
                   className={`flex menu-item ${
                     isActive ? "active-menu-item" : ""
                   }`}
+                  onClick={() => {
+                    // Collapse sidebar on mobile
+                    if (window.innerWidth < 768) setCollapsed(true);
+                  }}
                 >
                   <Link to={menu.path}>
                     <i className={menu.icon}></i>
@@ -152,9 +156,9 @@ const Layout = ({ children }) => {
             )}
           </div>
         </div>
-        <div className="content md:hidden flex-grow w-full">
+        <div className="content flex-grow w-full">
           <div className="header relative flex items-center justify-between px-4">
-            <div>
+            <div className="md:hidden">
               {!collapsed ? (
                 <i
                   className="ri-close-large-line header-action-icon"
