@@ -110,9 +110,9 @@ const Layout = ({ children }) => {
     : userMenu;
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
   return (
-    <div className="main p-2">
-      <div className="flex flex-grow layout">
-        <div className="sidebar">
+    <div className="main flex flex-col min-h-screen w-full">
+      <div className="flex flex-grow flex-col md:flex-row layout w-full">
+        <div className={`sidebar ${collapsed ? "hidden" : "block"} md:block`}>
           <div className="sidebar-header">
             <h1>PW</h1>
             {user && (
@@ -137,22 +137,22 @@ const Layout = ({ children }) => {
               );
             })}
             {user && (
-            <div
-              className={"flex menu-item"}
-              onClick={() => {
-                localStorage.clear();
-                navigate("/");
-              }}
-            >
-              <Link to="/">
-                <i className="ri-logout-circle-r-line"></i>
-                {!collapsed && "Logout"}
-              </Link>
-            </div>
+              <div
+                className={"flex menu-item"}
+                onClick={() => {
+                  localStorage.clear();
+                  navigate("/");
+                }}
+              >
+                <Link to="/">
+                  <i className="ri-logout-circle-r-line"></i>
+                  {!collapsed && "Logout"}
+                </Link>
+              </div>
             )}
           </div>
         </div>
-        <div className="content">
+        <div className="content md:hidden flex-grow w-full">
           <div className="header relative flex items-center justify-between px-4">
             <div>
               {!collapsed ? (
@@ -232,7 +232,7 @@ const Layout = ({ children }) => {
           <div className="body">{children}</div>
         </div>
       </div>
-      <div className="w-screen">
+      <div className="w-full">
         <Footer />
       </div>
     </div>
