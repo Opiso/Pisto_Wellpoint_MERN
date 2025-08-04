@@ -24,6 +24,12 @@ const Layout = ({ children }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setCollapsed(true);
+    }
+  }, [location.pathname]);
+
   const userMenu = [
     {
       name: "Home",
@@ -128,12 +134,15 @@ const Layout = ({ children }) => {
                   className={`flex menu-item ${
                     isActive ? "active-menu-item" : ""
                   }`}
-                  onClick={() => {
-                    // Collapse sidebar on mobile
-                    if (window.innerWidth < 768) setCollapsed(true);
-                  }}
                 >
-                  <Link to={menu.path}>
+                  <Link
+                    to={menu.path}
+                    onClick={() => {
+                      if (window.innerWidth < 768) {
+                        setCollapsed(true);
+                      }
+                    }}
+                  >
                     <i className={menu.icon}></i>
                     <span>{!collapsed && menu.name}</span>
                   </Link>
@@ -141,14 +150,15 @@ const Layout = ({ children }) => {
               );
             })}
             {user && (
-              <div
-                className={"flex menu-item"}
-                onClick={() => {
-                  localStorage.clear();
-                  navigate("/");
-                }}
-              >
-                <Link to="/">
+              <div className={"flex menu-item"}>
+                <Link
+                  to="/"
+                  onClick={() => {
+                    localStorage.clear();
+                    if (window.innerWidth < 768) setCollapsed(true);
+                    navigate("/");
+                  }}
+                >
                   <i className="ri-logout-circle-r-line"></i>
                   {!collapsed && "Logout"}
                 </Link>
