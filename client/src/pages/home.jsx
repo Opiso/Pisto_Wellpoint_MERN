@@ -116,7 +116,7 @@ const Home = () => {
                     </p>
                     <p className="text-gray-700 mb-1">
                       <span className="font-semibold">Location:</span>{" "}
-                      {doc.address}
+                      {doc.location}
                     </p>
                     <p className="text-gray-700 mb-1">
                       <span className="font-semibold">Phone:</span> {doc.phone}
